@@ -106,25 +106,25 @@ API Endpoints
 
 Authentication
 
-Method	Endpoint	        Description
-POST	/api/auth/login	    User login
-POST	/api/auth/logout	User logout
-POST	/api/auth/refresh	Refresh JWT token
-POST	/api/auth/me	    Get current user
+    Method	Endpoint	        Description
+    POST	/api/auth/login	    User login
+    POST	/api/auth/logout	User logout
+    POST	/api/auth/refresh	Refresh JWT token
+    POST	/api/auth/me	    Get current user
 
 Tasks (Protected)
 
-Method	    Endpoint	        Description	Access
-GET 	/api/tasks	            List tasks (with filtering)	All
-POST	/api/tasks	            Create new task	Manager
-GET	    /api/tasks/{id}	        Get task details	Owner/Manager
-PUT	    /api/tasks/{id}	        Update task	Varies
-DELETE	/api/tasks/{id}	        Delete task	Manager
+    Method	    Endpoint	        Description	Access
+    GET 	/api/tasks	            List tasks (with filtering)	All
+    POST	/api/tasks	            Create new task	Manager
+    GET	    /api/tasks/{id}	        Get task details	Owner/Manager
+    PUT	    /api/tasks/{id}	        Update task	Varies
+    DELETE	/api/tasks/{id}	        Delete task	Manager
 
 Task Dependencies (Manager only)
 
-Method	Endpoint	            Description
-POST	/api/dependencies	    Add dependency
-DELETE	/api/dependencies/{id}	Remove dependency
+    Method	Endpoint	            Description
+    POST	/api/dependencies	    Add dependency
+    DELETE	/api/dependencies/{id}	Remove dependency
 
 
