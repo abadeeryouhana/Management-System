@@ -24,8 +24,6 @@ Tech Stack:
 
     Database: MySQL 8.0
 
-    Containerization: Docker & Docker Compose
-
     Testing: PHPUnit
 
 Prerequisites:
@@ -35,8 +33,6 @@ Prerequisites:
     Composer
 
     MySQL 8.0 or higher
-
-    Node.js (optional, for frontend)
 
     Docker & Docker Compose (optional)
 
