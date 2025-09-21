@@ -1,66 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Task Management System API
+A robust and scalable RESTful API for managing tasks with role-based access control, task dependencies, and JWT authentication.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Features
+- JWT Authentication
 
-## About Laravel
+- Role-based Access Control (Manager/User)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Task Management with Dependencies
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Filtering and Search Capabilities
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Docker Containerization Support
 
-## Learning Laravel
+- Comprehensive API Documentation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHPUnit Testing Suite
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Tech Stack:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    Backend: Laravel 10.x
 
-## Laravel Sponsors
+    Authentication: JWT (tymon/jwt-auth)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    Database: MySQL 8.0
 
-### Premium Partners
+    Containerization: Docker & Docker Compose
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    Testing: PHPUnit
 
-## Contributing
+Prerequisites:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    PHP 8.1 or higher
 
-## Code of Conduct
+    Composer
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    MySQL 8.0 or higher
 
-## Security Vulnerabilities
+    Node.js (optional, for frontend)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    Docker & Docker Compose (optional)
 
-## License
+Quick Setup:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clone and Install
+    git clone <your-repository-url>
+    cd task-management-system
+    composer install
+2. Environment Setup
+    cp .env.example .env
+    php artisan key:generate
+    php artisan jwt:secret
+3. Configure Database
+    edit the .env file :
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=task_management
+        DB_USERNAME=root
+        DB_PASSWORD=your_password
+4. Database Migration
+    php artisan migrate --seed
+5. Serve Application
+    php artisan serve
+
+Default Users
+    After seeding, the system creates:
+
+Manager Account
+    Email: manager@example.com
+
+    Password: password
+
+    Permissions: Full access to all operations
+
+User Accounts (5 users)
+    Emails: user1@example.com to user5@example.com
+
+    Password: password (for all)
+
+    Permissions: Limited to assigned tasks
+
+Role-Based Access Control
+    Manager Permissions
+        Create, read, update, delete all tasks
+
+        Assign tasks to any user
+
+        Manage task dependencies
+
+        View all tasks in the system
+
+    User Permissions
+        View only assigned tasks
+
+        Update status of assigned tasks
+
+        Cannot create, delete, or assign tasks
+
+        Cannot manage dependencies
+
+    Task Dependencies
+        Tasks can have dependencies on other tasks. A task cannot be marked as completed until all its dependencies are completed.
+
+API Endpoints
+
+Authentication
+
+Method	Endpoint	        Description
+POST	/api/auth/login	    User login
+POST	/api/auth/logout	User logout
+POST	/api/auth/refresh	Refresh JWT token
+POST	/api/auth/me	    Get current user
+
+Tasks (Protected)
+
+Method	    Endpoint	        Description	Access
+GET 	/api/tasks	            List tasks (with filtering)	All
+POST	/api/tasks	            Create new task	Manager
+GET	    /api/tasks/{id}	        Get task details	Owner/Manager
+PUT	    /api/tasks/{id}	        Update task	Varies
+DELETE	/api/tasks/{id}	        Delete task	Manager
+
+Task Dependencies (Manager only)
+
+Method	Endpoint	            Description
+POST	/api/dependencies	    Add dependency
+DELETE	/api/dependencies/{id}	Remove dependency
+
+
